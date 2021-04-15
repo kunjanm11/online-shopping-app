@@ -1,16 +1,14 @@
 package com.example.demo.service.Customer;
 
 import com.example.demo.dao.Customer.CustomerDao;
-import com.example.demo.model.Customer.CustomerDetails;
-import com.example.demo.model.Customer.CustomerValidation;
-import com.example.demo.model.Customer.Customer_Cart;
-import com.example.demo.model.Customer.Customer_Username;
+import com.example.demo.model.Customer.*;
 import com.example.demo.model.Person.Person;
 import com.example.demo.model.Product.Product_Details;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.UUID;
 
 @Service
@@ -37,12 +35,12 @@ public class CustomerService {
         return customerDao.updateCustomerByUsername(customer_username,customerDetails);
     }
 
-    public String getCustomerDetails(String customer_username)
+    public CustomerDetails getCustomerDetails(String customer_username)
     {
         return customerDao.GetCustomerDetails(customer_username);
     }
 
-    public String getUserCart(Customer_Username customer_username)
+    public List<Customer_Cart> getUserCart(Customer_Username customer_username)
     {
         return customerDao.UserCart(customer_username);
     }
@@ -57,9 +55,14 @@ public class CustomerService {
     }
 
 
-    public String getallOrders(Customer_Username customer_username)
+    public List<Customer_Orders> getallOrders(Customer_Username customer_username)
     {
         return customerDao.allOrders(customer_username);
+    }
+
+    //list of all customer_username
+    public List<Customer_Username> allCustomerUsername() {
+        return customerDao.selectAllCustomer();
     }
 
 

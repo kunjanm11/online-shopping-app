@@ -1,9 +1,6 @@
 package com.example.demo.api.Customer;
 
-import com.example.demo.model.Customer.CustomerDetails;
-import com.example.demo.model.Customer.CustomerValidation;
-import com.example.demo.model.Customer.Customer_Cart;
-import com.example.demo.model.Customer.Customer_Username;
+import com.example.demo.model.Customer.*;
 import com.example.demo.model.Person.Person;
 import com.example.demo.model.Product.Product_Details;
 import com.example.demo.service.Customer.CustomerService;
@@ -12,6 +9,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
+import java.util.List;
 import java.util.UUID;
 
 
@@ -34,6 +32,12 @@ public class CustomerController {
         //security check class
 //        apiValidation.personValidator(person);
         return customerService.addCustomer(customerDetails);
+    }
+
+    //list of customer
+    @GetMapping(path="/allCustomer")
+    public List<Customer_Username> getALlCustomer_Username(){
+        return customerService.allCustomerUsername();
     }
 
     // Validating A Existing Customer
@@ -61,9 +65,9 @@ public class CustomerController {
 
     // All products of Cart
     @GetMapping(path = "/cart")
-    public void allCart(@Valid @NotNull @RequestBody Customer_Username customer_username)
+    public List<Customer_Cart> allCart(@Valid @NotNull @RequestBody Customer_Username customer_username)
     {
-        customerService.getUserCart(customer_username);
+        return customerService.getUserCart(customer_username);
     }
 
 
@@ -83,9 +87,9 @@ public class CustomerController {
 
     //All orders
     @GetMapping(path = "/orders")
-    public void allOrders(@Valid @NotNull @RequestBody Customer_Username customer_username)
+    public List<Customer_Orders> allOrders(@Valid @NotNull @RequestBody Customer_Username customer_username)
     {
-        customerService.getallOrders(customer_username);
+       return customerService.getallOrders(customer_username);
     }
 
 
